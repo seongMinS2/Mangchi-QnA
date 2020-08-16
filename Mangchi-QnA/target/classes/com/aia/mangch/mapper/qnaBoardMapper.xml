@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.aia.mangch.dao.QnADaoInterface">
+
+	<!-- select의 결과를 객체에 바인딩 역할: 테이블의 컬럼명과 java beans의 변수의 이름이 틀린 경우 -->
+	<resultMap id="resultQna"
+				type="com.aia.mangch.model.QnaBoard">
+
+		<id property="idx" column="qna_idx" />
+		<result property="memNick" column="member_nick" />
+		<result property="title" column="qna_title" />
+		<result property="contents" column="qna_contents" />
+		<result property="regdate" column="qna_regdate" />
+		<result property="count" column="qna_count" />
+		<result property="status" column="qna_status" />
+		<result property="pw" column="qna_pw" />
+		<result property="parents" column="qna_parents" />
+		<result property="depth" column="qna_depth" />
+		<collection property="comment" resultMap="resultComm"></collection>
+		<!-- 주석처리시 그 값은 null이 되어 들어감 <result property="upw" column="upw"/> -->
+	</resultMap>
+	
+	<resultMap id="resultComm"
+				type="com.aia.mangch.model.QnaComment">
+		
+		<id property="idx" column="qna_comm_idx" />
+		<result property="boardIdx" column="qna_board_idx"/>		
+		<result property="writer" column="qna_comm_writer"/>		
+		<result property="contents" column="qna_comm_contents"/>		
+		<result property="regdate" column="qna_comm_regdate"/>		
+		<result property="parents" column="qna_comm_parents"/>		
+		<result property="depth" column="qna_comm_depth"/>		
+				
+	</resultMap>
+	
+	<resultMap id="resultModify"
+				type="com.aia.mangch.model.BoardRegRequest">
+		
+		<id property="memberNick" column="qna_nick" />
+		<result property="title" column="qna_title"/>		
+		<result property="contents" column="qna_contents"/>		
+		<result property="pw" column="qna_pw"/>		
+				
+	</resultMap>
+	
+	<select id="selectTotalList"
+			resultMap="resultQna">
+			<include refid="selectFromBoard"/>
+	</select>
+	
+	<!-- 게시글 쓰기 -->
+	<insert id="writeBoard">
+		INSERT INTO Mangchi.qna_board(member_nick, qna_title, qna_contents, qna_pw) VALUE (#{memNick},#{title},#{contents},#{pw})
+	</insert>
+
+	<!-- 게시글 수정뷰 출력 -->
+	<select id="modifyView" resultMap="resultModify">
+		<include refid="selectFromBoard"/>
+		WHERE qna_idx = #{idx}
+	</select>
+	
+		<!-- 게시글 쓰기 -->
+	<update id="modifyBoard">
+		UPDATE 테이블명 SET 컬럼1 = 수정값1	
+	</update>
+	
+	
+	<!-- 게시글 목록 출력 -->
+	<select id="selectDetailView"
+			resultMap="resultQna"> 
+		<include refid="selectFromBoard" />
+		WHERE qna_idx = #{idx}
+	</select>
+	
+	<!-- 게시글의 댓글 출력 -->
+	<select id="selectComment"
+			resultMap="resultComm">
+			
+		<include refid="selectFromComment" />
+		WHERE qna_board_idx = #{idx}
+			
+	</select>
+	
+	<!-- 게시물 + 댓글 출력 -->
+	<select id="selectBoardComment"
+			resultMap="resultQna">
+			
+	SELECT * FROM 
+	Mangchi.qna_board a 
+	LEFT JOIN 
+	Mangchi.qna_comment b 
+	ON a.qna_idx = b.qna_board_idx
+	WHERE a.qna_idx = #{idx}
+			
+	</select>
+	
+	<sql id="whereID">
+		OR uid LIKE CONCAT('%',#{keyword},'%')
+	</sql>
+
+	<sql id="whereName">
+		OR uname LIKE CONCAT('%',#{keyword},'%')
+	</sql>
+	
+	<sql id="selectFromBoard">
+		SELECT * FROM Mangchi.qna_board
+	</sql>
+	
+	<sql id="selectFromComment">
+		SECET * FROM Mangchi.qna_comment
+	</sql>
+
+
+</mapper>
