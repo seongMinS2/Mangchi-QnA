@@ -41,11 +41,21 @@ public class QnaBoardServiceImpl implements QnaBoardService {
 		return dao.modifyView(idx);
 	}
 
-	@Override
-	public BoardRegRequest modifyBoard(int idx) {
+	//수정하기
+	public int modifyBoard(int idx, BoardRegRequest regRequest) {
 		
 		dao = template.getMapper(QnADaoInterface.class);
 
-		return dao.modifyBoard(idx);
+		return dao.modifyBoard(idx, regRequest);
+	}
+
+	//삭제하기
+	public int deleteBoard(int idx) {
+		return dao.deleteBoard(idx);
+	}
+
+	//답글작성
+	public int replyWriteBoard(BoardRegRequest regRequest, int idx) {
+		return dao.replyWriteBoard(regRequest,idx);
 	}
 }

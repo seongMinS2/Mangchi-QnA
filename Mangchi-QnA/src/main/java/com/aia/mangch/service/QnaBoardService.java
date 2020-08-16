@@ -13,5 +13,9 @@ public interface QnaBoardService {
 
 	public BoardRegRequest modifyView(int idx);
 
-	public BoardRegRequest modifyBoard(int idx);
+	public int modifyBoard(int idx, BoardRegRequest regRequest);
+
+	public int deleteBoard(int idx);
+
+	public int replyWriteBoard(BoardRegRequest regRequest, int idx);
 }

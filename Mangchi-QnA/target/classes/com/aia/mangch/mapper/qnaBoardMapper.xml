@@ -5,7 +5,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="com.aia.mangch.dao.QnADaoInterface">
 
-	<!-- select의 결과를 객체에 바인딩 역할: 테이블의 컬럼명과 java beans의 변수의 이름이 틀린 경우 -->
 	<resultMap id="resultQna"
 				type="com.aia.mangch.model.QnaBoard">
 
@@ -19,8 +18,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="pw" column="qna_pw" />
 		<result property="parents" column="qna_parents" />
 		<result property="depth" column="qna_depth" />
+		<!-- 컬렉션을 쓰면 리스트나 맵으로 모든 결과를 담을수잇음 -->
 		<collection property="comment" resultMap="resultComm"></collection>
-		<!-- 주석처리시 그 값은 null이 되어 들어감 <result property="upw" column="upw"/> -->
 	</resultMap>
 	
 	<resultMap id="resultComm"
@@ -53,7 +52,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- 게시글 쓰기 -->
 	<insert id="writeBoard">
-		INSERT INTO Mangchi.qna_board(member_nick, qna_title, qna_contents, qna_pw) VALUE (#{memNick},#{title},#{contents},#{pw})
+		INSERT INTO 
+		Mangchi.qna_board(member_nick, qna_title, qna_contents, qna_pw) 
+		VALUE (#{memNick},#{title},#{contents},#{pw})
+	</insert>
+	
+	<!-- 답글 쓰기 -->
+	<insert id="replyWriteBoard">
+		INSERT INTO 
+		Mangchi.qna_board(member_nick, qna_title, qna_contents, qna_pw, qna_parents) 
+		VALUE (#{regReq.memberNick},#{regReq.title},#{regReq.contents},#{regReq.pw},#{idx})
 	</insert>
 
 	<!-- 게시글 수정뷰 출력 -->
@@ -62,11 +70,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE qna_idx = #{idx}
 	</select>
 	
-		<!-- 게시글 쓰기 -->
-	<update id="modifyBoard">
-		UPDATE 테이블명 SET 컬럼1 = 수정값1	
+		<!-- 게시글 수정하기 -->
+	<update id="modifyBoard" parameterType="map">
+		UPDATE Mangchi.qna_board 
+		SET qna_title = #{regReq.title}, qna_contents = #{regReq.contents}, qna_pw = #{regReq.pw}
+		WHERE qna_idx = #{idx}
 	</update>
 	
+	<!-- 게시글 삭제하기 -->
+	<delete id="deleteBoard">
+		DELETE FROM Mangchi.qna_board
+		WHERE qna_idx = #{idx}
+	</delete>
 	
 	<!-- 게시글 목록 출력 -->
 	<select id="selectDetailView"
@@ -96,6 +111,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	WHERE a.qna_idx = #{idx}
 			
 	</select>
+	
+	<!-- 댓글 쓰기 -->
+	<insert id="insertComment">
+		INSERT INTO 
+		Mangchi.qna_comment(qna_board_idx, qna_comm_writer, qna_comm_contents) 
+		VALUE (#{boardIdx},#{writer},#{contents})
+	</insert>
+	
+	<!-- 댓글 삭제 -->
+	<delete id="deleteComment">
+		DELETE FROM Mangchi.qna_comment
+		WHERE qna_comm_idx = #{idx}
+	</delete>
 	
 	<sql id="whereID">
 		OR uid LIKE CONCAT('%',#{keyword},'%')
