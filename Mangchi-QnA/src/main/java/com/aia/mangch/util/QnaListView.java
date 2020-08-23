@@ -25,17 +25,19 @@ public class QnaListView {
 	private int totalPage;
 	//시작 페이지
 	private int startPage;
-	//마지막 페이지(mysql은 필요x)
-	//private int endPage;
+	//마지막 페이지
+	private int endPage;
 	
-	public QnaListView(int page, int countList, int countPage, int totalCount, List<QnaBoard> boardList) {
+	public QnaListView(int page, int countList, int countPage, int totalCount,
+					   int startPage,int totalPage, int endPage, List<QnaBoard> boardList) {
 		this.page = page;
 		this.countList = countList;
 		this.countPage = countPage;
 		this.totalCount = totalCount;
-		this.totalPage = totalCount / countList;
-		this.startPage = ((page - 1) / countPage) * countPage + 1;
+		this.totalPage = totalPage;
+		this.startPage = startPage;
 		this.boardList = boardList;
+		this.endPage = endPage;
 	}
 
 	public int getPage() {
@@ -65,67 +67,16 @@ public class QnaListView {
 	public List<QnaBoard> getBoardList() {
 		return boardList;
 	}
+	
+	public int getEndPage() {
+		return endPage;
+	}
 
 	@Override
 	public String toString() {
 		return "QnaListView [page=" + page + ", countList=" + countList + ", countPage=" + countPage + ", totalCount="
-				+ totalCount + ", totalPage=" + totalPage + ", startPage=" + startPage + ", boardList=" + boardList + "]";
+				+ totalCount + ", boardList=" + boardList + ", totalPage=" + totalPage + ", startPage=" + startPage
+				+ ", endPage=" + endPage + "]";
 	}
 
-
-//	if (totalCount % countList > 0) {
-//	    totalPage++;
-//	}
-//
-//
-//
-//	if (totalPage < page) {
-//	    page = totalPage;
-//	}
-//
-//
-//
-//
-//
-//
-//	if (endPage > totalPage) {
-//	    endPage = totalPage;
-//	}
-//
-//
-//
-//	if (startPage > 1) {
-//
-//	    System.out.print("<a href=\"?page=1\">처음</a>");
-//
-//	}
-//
-//
-//
-//	if (page > 1) {
-//
-//	    System.out.println("<a href=\"?page=" + (page - 1)  + "\">이전</a>");
-//
-//	}
-//
-//
-//
-//	for (int iCount = startPage; iCount <= endPage; iCount++) {
-//	    if (iCount == page) {
-//	        System.out.print(" <b>" + iCount + "</b>");
-//	    } else {
-//	        System.out.print(" " + iCount + " ");
-//	    }
-//	}
-//
-//
-//	if (page < totalPage) {
-//	    System.out.println("<a href=\"?page=" + (page + 1)  + "\">다음</a>");
-//	}
-//
-//
-//
-//	if (endPage < totalPage) {
-//	    System.out.print("<a href=\"?page=" + totalPage + "\">끝</a>");
-//	}
 }

@@ -14,7 +14,7 @@ public interface QnADaoInterface {
 	public int selectTotalCount();
 	
 	//한페이지에 보여질 게시물
-	public List<QnaBoard> selectView(int countList,);
+	public List<QnaBoard> selectView(int startRow,int countList);
 	
 	//상세 페이지 보기
 	public QnaBoard selectDetailView(int idx);
@@ -48,7 +48,6 @@ public interface QnADaoInterface {
 
 	//댓글 수정
 	public int modifyComment(QnaComment comment);
-	
-	
+
 }
 
