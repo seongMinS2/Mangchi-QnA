@@ -17,7 +17,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="status" column="qna_status" />
 		<result property="pw" column="qna_pw" />
 		<result property="parents" column="qna_parents" />
-		<result property="depth" column="qna_depth" />
+		<result property="from" column="qna_from" />
 		<!-- 컬렉션을 쓰면 리스트나 맵으로 모든 결과를 담을수잇음 -->
 		<collection property="comment" resultMap="resultComm"></collection>
 	</resultMap>
@@ -31,7 +31,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="contents" column="qna_comm_contents"/>		
 		<result property="regdate" column="qna_comm_regdate"/>		
 		<result property="parents" column="qna_comm_parents"/>		
-		<result property="depth" column="qna_comm_depth"/>		
+		<result property="from" column="qna_comm_from"/>		
 				
 	</resultMap>
 	
@@ -44,62 +44,32 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="pw" column="qna_pw"/>		
 				
 	</resultMap>
-	
-	<select id="selectTotalList"
-			resultMap="resultQna">
-			<include refid="selectFromBoard"/>
-	</select>
-	
-	<!-- 게시글 쓰기 -->
-	<insert id="writeBoard">
-		INSERT INTO 
-		Mangchi.qna_board(member_nick, qna_title, qna_contents, qna_pw) 
-		VALUE (#{memNick},#{title},#{contents},#{pw})
-	</insert>
-	
-	<!-- 답글 쓰기 -->
-	<insert id="replyWriteBoard">
-		INSERT INTO 
-		Mangchi.qna_board(member_nick, qna_title, qna_contents, qna_pw, qna_parents) 
-		VALUE (#{regReq.memberNick},#{regReq.title},#{regReq.contents},#{regReq.pw},#{idx})
-	</insert>
-
-	<!-- 게시글 수정뷰 출력 -->
-	<select id="modifyView" resultMap="resultModify">
-		<include refid="selectFromBoard"/>
-		WHERE qna_idx = #{idx}
-	</select>
-	
-		<!-- 게시글 수정하기 -->
-	<update id="modifyBoard" parameterType="map">
-		UPDATE Mangchi.qna_board 
-		SET qna_title = #{regReq.title}, qna_contents = #{regReq.contents}, qna_pw = #{regReq.pw}
-		WHERE qna_idx = #{idx}
-	</update>
-	
-	<!-- 게시글 삭제하기 -->
-	<delete id="deleteBoard">
-		DELETE FROM Mangchi.qna_board
-		WHERE qna_idx = #{idx}
-	</delete>
-	
-	<!-- 게시글 목록 출력 -->
-	<select id="selectDetailView"
+<!-- ######################삭제될 코드들 #################################### -->
+		<!-- 게시글 목록 출력 -->
+<!-- 	<select id="selectDetailView"
 			resultMap="resultQna"> 
 		<include refid="selectFromBoard" />
 		WHERE qna_idx = #{idx}
-	</select>
+	</select> -->
 	
 	<!-- 게시글의 댓글 출력 -->
-	<select id="selectComment"
+<!-- 	<select id="selectComment"
 			resultMap="resultComm">
 			
 		<include refid="selectFromComment" />
 		WHERE qna_board_idx = #{idx}
 			
+	</select> -->
+<!-- ######################################################################## -->
+	
+	<!-- 전체 게시물 출력 -->
+	<select id="selectTotalCount"
+			resultType="int">
+			SELECT count(*) 
+			FROM Mangchi.qna_board
 	</select>
 	
-	<!-- 게시물 + 댓글 출력 -->
+	<!-- 게시물 상세 페이지 / 댓글 출력 -->
 	<select id="selectBoardComment"
 			resultMap="resultQna">
 			
@@ -111,12 +81,63 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	WHERE a.qna_idx = #{idx}
 			
 	</select>
+		
+	<!-- 게시글 쓰기 -->
+	<insert id="writeBoard">
+		INSERT INTO 
+		Mangchi.qna_board
+		(member_nick, qna_title, qna_contents, qna_pw) 
+		VALUE 
+		(#{memNick},#{title},#{contents},#{pw})
+	</insert>
 	
+	<!-- 답글 쓰기 -->
+	<insert id="replyWriteBoard">
+		INSERT INTO 
+		Mangchi.qna_board
+		(member_nick, qna_title, qna_contents, qna_pw, qna_parents) 
+		VALUE 
+		(#{regReq.memberNick},#{regReq.title},#{regReq.contents},#{regReq.pw},#{idx})
+	</insert>
+
+	<!-- 게시글 수정뷰 출력 -->
+	<select id="modifyView" resultMap="resultModify">
+		<include refid="selectFromBoard"/>
+		WHERE qna_idx = #{idx}
+	</select>
+	
+		<!-- 게시글 수정하기 -->
+	<update id="modifyBoard" parameterType="map">
+		UPDATE Mangchi.qna_board 
+		SET qna_title = #{regReq.title},
+			qna_contents = #{regReq.contents}, 
+			qna_pw = #{regReq.pw}
+		WHERE qna_idx = #{idx}
+	</update>
+	
+	<!-- 게시글 삭제하기 -->
+	<delete id="deleteBoard">
+		DELETE FROM Mangchi.qna_board
+		WHERE qna_idx = #{idx}
+	</delete>
+	
+
 	<!-- 댓글 쓰기 -->
 	<insert id="insertComment">
 		INSERT INTO 
-		Mangchi.qna_comment(qna_board_idx, qna_comm_writer, qna_comm_contents) 
-		VALUE (#{boardIdx},#{writer},#{contents})
+		Mangchi.qna_comment
+		(qna_board_idx, qna_comm_writer, qna_comm_contents) 
+		VALUE 
+		(#{boardIdx},#{writer},#{contents})
+	</insert>
+	
+	<!-- 대댓글 쓰기 -->
+	<insert id="insertHirachyComment">
+		INSERT INTO 
+			Mangchi.qna_comment
+			(qna_board_idx, qna_comm_writer, qna_comm_contents, qna_comm_parents) 
+			VALUE 
+			(#{boardIdx},#{writer},#{contents},#{parents})
 	</insert>
 	
 	<!-- 댓글 삭제 -->
@@ -124,6 +145,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		DELETE FROM Mangchi.qna_comment
 		WHERE qna_comm_idx = #{idx}
 	</delete>
+	
+	<!-- 댓글 수정 -->
+	<update id="modifyComment">
+		UPDATE Mangchi.qna_comment 
+		SET qna_comm_contents = #{contents}
+		WHERE qna_comm_idx = #{idx}
+	</update>
+	
 	
 	<sql id="whereID">
 		OR uid LIKE CONCAT('%',#{keyword},'%')

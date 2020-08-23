@@ -10,8 +10,11 @@ import com.aia.mangch.model.QnaComment;
 
 public interface QnADaoInterface {
 
-	//게시글 목록 출력
-	public List<QnaBoard> selectTotalList();
+	//총 게시물 수 구하기
+	public int selectTotalCount();
+	
+	//한페이지에 보여질 게시물
+	public List<QnaBoard> selectView(int countList,);
 	
 	//상세 페이지 보기
 	public QnaBoard selectDetailView(int idx);
@@ -36,8 +39,15 @@ public interface QnADaoInterface {
 	
 	//댓글 쓰기
 	public int insertComment(QnaComment comment);
-
+	
+	//댓글 삭제
 	public int deleteComment(int idx);
+
+	//대댓글 쓰기
+	public int insertHirachyComment(QnaComment comment);
+
+	//댓글 수정
+	public int modifyComment(QnaComment comment);
 	
 	
 }

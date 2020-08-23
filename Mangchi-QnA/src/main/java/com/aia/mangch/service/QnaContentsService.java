@@ -9,4 +9,8 @@ public interface QnaContentsService {
 	public int insertComment(QnaComment comment);
 
 	public int deleteComment(int idx);
+
+	public int insertHirachyComment(QnaComment comment);
+
+	public int modifyComment(QnaComment comment);
 }

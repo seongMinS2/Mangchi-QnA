@@ -1,7 +1,5 @@
 package com.aia.mangch.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,12 +8,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.aia.mangch.model.BoardRegRequest;
-import com.aia.mangch.model.QnaBoard;
 import com.aia.mangch.service.QnaBoardService;
+import com.aia.mangch.util.QnaListView;
 
 @RestController
 @RequestMapping("/qna/*")
@@ -27,11 +26,12 @@ public class QnaBoardController {
 	//게시글 목록 출력
 	@GetMapping(value="/")
 	@ResponseBody
-	public List<QnaBoard> getView(){
+	public QnaListView getView(@RequestParam(value = "idx") int idx){
+		System.out.println("페이지값====>" + idx);
 		
-		return boardService.getQnABoardList(); 
+		return boardService.getQnABoardList(idx); 
 	}
-
+	
 	//게시글 쓰기
 	@PostMapping(value="/")
 	public int writeBoard(@RequestBody BoardRegRequest regRequest) {
@@ -65,4 +65,5 @@ public class QnaBoardController {
 		
 		return boardService.deleteBoard(idx);
 	}
+	
 }

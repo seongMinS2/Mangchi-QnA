@@ -6,6 +6,7 @@ public class BoardRegRequest {
 	private String title;
 	private String contents;
 	private String pw;
+
 	
 	public BoardRegRequest() {}
 	

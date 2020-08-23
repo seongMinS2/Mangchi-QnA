@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 public class QnaBoard {
+	/*============================*/
 	private int idx;
 	private String memNick;
 	private String title;
@@ -13,14 +14,14 @@ public class QnaBoard {
 	private int status;
 	private String pw;
 	private int parents;
-	private int depth;
+	private String from;
 	private List<QnaComment> comment;
-	
+	/*============================*/
 	
 	public QnaBoard() {	}
 	
 	// 화면에 출력될때 필요한 모델 데이터
-	public QnaBoard(int idx, String memNick, String title, Date regdate, int count, int status, int parents, int depth, List<QnaComment> comment) {
+	public QnaBoard(int idx, String memNick, String title, Date regdate, int count, int status, int parents, String from, List<QnaComment> comment) {
 		this.idx = idx;
 		this.memNick = memNick;
 		this.title = title;
@@ -28,7 +29,7 @@ public class QnaBoard {
 		this.count = count;
 		this.status = status;
 		this.parents = parents;
-		this.depth = depth;
+		this.from = from;
 		this.comment = comment;
 	}
 	
@@ -41,7 +42,7 @@ public class QnaBoard {
 	}
 
 	public QnaBoard(int idx, String memNick, String title, String contents, Date regdate, int count, int status,
-			String pw, int parents, int depth, List<QnaComment> comment) {
+			String pw, int parents, String from, List<QnaComment> comment) {
 		this.idx = idx;
 		this.memNick = memNick;
 		this.title = title;
@@ -51,7 +52,7 @@ public class QnaBoard {
 		this.status = status;
 		this.pw = pw;
 		this.parents = parents;
-		this.depth = depth;
+		this.from = from;
 		this.comment = comment;
 	}
 
@@ -127,12 +128,12 @@ public class QnaBoard {
 		this.parents = parents;
 	}
 
-	public int getDepth() {
-		return depth;
+	public String getfrom() {
+		return from;
 	}
 
-	public void setDepth(int depth) {
-		this.depth = depth;
+	public void setfrom(String from) {
+		this.from = from;
 	}
 
 	public List<QnaComment> getComment() {
@@ -147,7 +148,7 @@ public class QnaBoard {
 	public String toString() {
 		return "QnABoard [idx=" + idx + ", memNick=" + memNick + ", title=" + title + ", contents=" + contents
 				+ ", regdate=" + regdate + ", count=" + count + ", status=" + status + ", pw=" + pw + ", parents="
-				+ parents + ", depth=" + depth + ", comment=" + comment + "]";
+				+ parents + ", from=" + from + ", comment=" + comment + "]";
 	}
 
 	

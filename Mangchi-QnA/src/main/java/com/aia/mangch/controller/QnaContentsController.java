@@ -34,13 +34,21 @@ public class QnaContentsController {
 		System.out.println("댓글 받은 데이터 ============>" + comment);
 		return contentsService.insertComment(comment);
 	}
-//	
-//	//댓글 수정
-//	@RequestMapping(value="/", method = RequestMethod.PUT)
-//	public int updateComment() {
-//		
-//		return 0;
-//	}
+	
+	//대댓글쓰기
+	@PostMapping(value="/hirachy")
+	public int writeHirachyComment(@RequestBody QnaComment comment) {
+		System.out.println("대댓글 받은 데이터 =======>" + comment);
+		return contentsService.insertHirachyComment(comment);
+	}
+	
+	
+	//댓글 수정
+	@RequestMapping(value="/", method = RequestMethod.PUT)
+	public int updateComment(@RequestBody QnaComment comment) {
+		System.out.println("수정 댓글 받은 데이터 ======>" + comment);
+		return contentsService.modifyComment(comment);
+	}
 	
 	//게시글 삭제
 	@DeleteMapping(value="/{idx}")

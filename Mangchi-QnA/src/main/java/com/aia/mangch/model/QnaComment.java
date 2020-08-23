@@ -10,18 +10,18 @@ public class QnaComment {
 	private String contents;
 	private Date regdate;
 	private int parents;
-	private int depth;
+	private String from;
 	
 	public QnaComment() {}
 	
-	public QnaComment(int idx, int boardIdx, String writer, String contents, Date regdate, int parents, int depth) {
+	public QnaComment(int idx, int boardIdx, String writer, String contents, Date regdate, int parents, String from) {
 		this.idx = idx;
 		this.boardIdx = boardIdx;
 		this.writer = writer;
 		this.contents = contents;
 		this.regdate = regdate;
 		this.parents = parents;
-		this.depth = depth;
+		this.from = from;
 	}
 	public int getIdx() {
 		return idx;
@@ -59,17 +59,17 @@ public class QnaComment {
 	public void setParents(int parents) {
 		this.parents = parents;
 	}
-	public int getDepth() {
-		return depth;
+	public String getfrom() {
+		return from;
 	}
-	public void setDepth(int depth) {
-		this.depth = depth;
+	public void setfrom(String from) {
+		this.from = from;
 	}
 
 	@Override
 	public String toString() {
 		return "QnAComment [idx=" + idx + ", boardIdx=" + boardIdx + ", writer=" + writer + ", contents=" + contents
-				+ ", regdate=" + regdate + ", parents=" + parents + ", depth=" + depth + "]";
+				+ ", regdate=" + regdate + ", parents=" + parents + ", from=" + from + "]";
 	}
 	
 	

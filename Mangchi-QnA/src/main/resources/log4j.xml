@@ -33,7 +33,7 @@
 	<logger name="org.springframework.web">
 		<level value="info" />
 	</logger>
-
+	<!-- jdbc,hikari -->
 	<!-- <logger name="com.zaxxer.hikari.HikariConfig">
 		<level value="DEBUG" />
 	</logger>

@@ -1,13 +1,11 @@
 package com.aia.mangch.service;
 
-import java.util.List;
-
 import com.aia.mangch.model.BoardRegRequest;
-import com.aia.mangch.model.QnaBoard;
+import com.aia.mangch.util.QnaListView;
 
 public interface QnaBoardService {
 
-	public List<QnaBoard> getQnABoardList();
+	public QnaListView getQnABoardList(int idx);
 
 	public int writeBoard(BoardRegRequest regRequest);
 
