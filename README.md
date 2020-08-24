@@ -1,11 +1,10 @@
 # Mangchi-QnA
 
-### 아직 미완성이라 정리가 덜 되었습니다. 너그럽게 봐주시면 감사하겠습니다.
+###### 미완...
 
-# View(jsp)
-https://github.com/seongMinS2/Mangchi-Final/tree/master/Mangch_Client/src/main/webapp/WEB-INF/views/qna
-# View(Js)
-https://github.com/seongMinS2/Mangchi-Final/blob/master/Mangch_Client/src/main/webapp/resources/js/min.js
+# [View(jsp)] (https://github.com/seongMinS2/Mangchi-Final/tree/master/Mangch_Client/src/main/webapp/WEB-INF/views/qna)
+
+# [View(Js)] (https://github.com/seongMinS2/Mangchi-Final/blob/master/Mangch_Client/src/main/webapp/resources/js/min.js)
 
 # [Controller](https://github.com/seongMinS2/Mangchi-QnA/tree/master/Mangchi-QnA/src/main/java/com/aia/mangch/controller)
 
