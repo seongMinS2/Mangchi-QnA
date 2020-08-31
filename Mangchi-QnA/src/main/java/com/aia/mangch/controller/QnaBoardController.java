@@ -1,5 +1,7 @@
 package com.aia.mangch.controller;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,10 +28,12 @@ public class QnaBoardController {
 	//게시글 목록 출력
 	@GetMapping(value="/")
 	@ResponseBody
-	public QnaListView getView(@RequestParam(value = "idx") int idx){
-		System.out.println("페이지값====>" + idx);
-		
-		return boardService.getQnABoardList(idx); 
+	public QnaListView getView(@RequestParam Map<String,Object> map) {
+		int idx = Integer.parseInt((String) map.get("idx"));
+		System.out.println("페이지값====>" + map.get("idx"));
+		System.out.println("검색어====>" + map.get("searchType"));
+		System.out.println("검색타입====>" + map.get("keyword"));
+		return boardService.getQnABoardList(map); 
 	}
 	
 	//게시글 쓰기

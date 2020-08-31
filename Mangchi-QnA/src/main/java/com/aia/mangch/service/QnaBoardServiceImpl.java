@@ -1,7 +1,7 @@
 package com.aia.mangch.service;
 
 import java.util.List;
-import java.util.logging.Logger;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,10 +37,10 @@ public class QnaBoardServiceImpl implements QnaBoardService {
 	private List<QnaBoard> boardList;
 	
 	//게시글 페이징 목록 출력
-	public QnaListView getQnABoardList(int page){
+	public QnaListView getQnABoardList(Map<String,Object> map){
 		
 		dao = template.getMapper(QnADaoInterface.class);
-		
+		int page = Integer.parseInt((String) map.get("idx"));
 		//페이지가 0보다 같거나 작을때
 		if(page<=0) {
 			page=1;
@@ -77,8 +77,11 @@ public class QnaBoardServiceImpl implements QnaBoardService {
 		    endPage = totalPage;
 		}
 		
+		//시작과 끝페이지 맵에 담기
+		map.put("startRow", startRow);
+		map.put("countList", countList);
 		//한페이지에 보여질 뷰 리스트
-		boardList = dao.selectView(startRow,countList);
+		boardList = dao.selectView(map);
 		
 		 return new QnaListView(page,countList,countPage,
 				 totalCount,startPage,totalPage,endPage,boardList);

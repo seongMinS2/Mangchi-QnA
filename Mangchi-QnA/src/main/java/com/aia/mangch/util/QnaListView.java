@@ -14,19 +14,20 @@ public class QnaListView {
 	//화면에 보여질 총 페이지 수
 	private int countPage;
 	/*==================================*/
-	/*==================================*/
-	/*DB에서 가져올 데이터*/ 
-	//총 게시물 수
-	private int totalCount;
-	//보여줄 게시글 리스트
-	private List<QnaBoard> boardList;
-	/*==================================*/
+	/*통계*/
 	//전체 페이지
 	private int totalPage;
 	//시작 페이지
 	private int startPage;
 	//마지막 페이지
 	private int endPage;
+	/*==================================*/
+	/*DB에서 가져올 데이터*/ 
+	//총 게시물 수
+	private int totalCount;
+	//보여줄 게시글 리스트
+	private List<QnaBoard> boardList;
+	
 	
 	public QnaListView(int page, int countList, int countPage, int totalCount,
 					   int startPage,int totalPage, int endPage, List<QnaBoard> boardList) {

@@ -1,6 +1,7 @@
 package com.aia.mangch.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
@@ -14,7 +15,7 @@ public interface QnADaoInterface {
 	public int selectTotalCount();
 	
 	//한페이지에 보여질 게시물
-	public List<QnaBoard> selectView(int startRow,int countList);
+	public List<QnaBoard> selectView(Map<String,Object> map);
 	
 	//상세 페이지 보기
 	public QnaBoard selectDetailView(int idx);
