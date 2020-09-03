@@ -1,9 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
+<beans 
+	xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:p="http://www.springframework.org/schema/p"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
 
+	<context:component-scan base-package="com.aia.mangch">
+		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+	</context:component-scan>
+	
 	<!-- Root Context: defines shared resources visible to all other web components -->
 	<!-- <bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource"
 		p:driverClassName="com.mysql.cj.jdbc.Driver"
@@ -11,10 +18,15 @@
 		p:username="bit" p:password="bit">
 	</bean> -->
 	
+		  <!-- 
+		  log4jdbc로 변경 
+		  p:driverClassName="com.mysql.cj.jdbc.Driver"
+		  p:jdbcUrl="jdbc:log4jdbc:mysql://aia.cgcmfq7auqmh.ap-northeast-2.rds.amazonaws.com/Mangchi?serverTimezone=UTC"
+		  -->
 	<bean id="hikariConfig" 
 		  class="com.zaxxer.hikari.HikariConfig"
-		  p:driverClassName="com.mysql.cj.jdbc.Driver"
-		  p:jdbcUrl="jdbc:mysql://aia.cgcmfq7auqmh.ap-northeast-2.rds.amazonaws.com/Mangchi?serverTimezone=UTC"
+		  p:driverClassName="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"
+		  p:jdbcUrl="jdbc:log4jdbc:mysql://aia.cgcmfq7auqmh.ap-northeast-2.rds.amazonaws.com/Mangchi?serverTimezone=UTC"
 		  p:username="bit"
 		  p:password="bit"
 		  p:maximumPoolSize="3"
@@ -34,4 +46,7 @@
 		class="org.mybatis.spring.SqlSessionTemplate">
 		<constructor-arg index="0" ref="sqlSessionFactory"></constructor-arg>
 	</bean>
+	
+
+
 </beans>

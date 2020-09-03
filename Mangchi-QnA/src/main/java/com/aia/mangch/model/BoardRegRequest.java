@@ -6,7 +6,9 @@ public class BoardRegRequest {
 	private String title;
 	private String contents;
 	private String pw;
-
+	private int originNo;
+	private int groupOrd;
+	private int groupLayer;
 	
 	public BoardRegRequest() {}
 	
@@ -49,6 +51,30 @@ public class BoardRegRequest {
 		this.pw = pw;
 	}
 
+	public int getOriginNo() {
+		return originNo;
+	}
+
+	public void setOriginNo(int originNo) {
+		this.originNo = originNo;
+	}
+
+	public int getGroupOrd() {
+		return groupOrd;
+	}
+
+	public void setGroupOrd(int groupOrd) {
+		this.groupOrd = groupOrd;
+	}
+
+	public int getGroupLayer() {
+		return groupLayer;
+	}
+
+	public void setGroupLayer(int groupLayer) {
+		this.groupLayer = groupLayer;
+	}
+
 	// BoardRegRequest -> QnABoard
 	public QnaBoard toQnaBoard() {
 		return new QnaBoard(memberNick,title,contents,pw);
@@ -57,8 +83,9 @@ public class BoardRegRequest {
 	@Override
 	public String toString() {
 		return "BoardRegRequest [memberNick=" + memberNick + ", title=" + title + ", contents=" + contents + ", pw="
-				+ pw + "]";
+				+ pw + ", originNo=" + originNo + ", groupOrd=" + groupOrd + ", groupLayer=" + groupLayer + "]";
 	}
+
 	
 	
 	

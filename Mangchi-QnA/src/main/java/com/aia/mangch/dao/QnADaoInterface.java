@@ -21,10 +21,13 @@ public interface QnADaoInterface {
 	public QnaBoard selectDetailView(int idx);
 	
 	//상세 페이지 + 댓글
-	public QnaBoard selectBoardComment(int idx);
+	public QnaBoard selectBoardComment(Map<String,Integer> idx);
 
 	//게시글 쓰기
 	public int writeBoard(QnaBoard board);
+	
+	//selectKey주입
+	public int selectKeyInject(int selectKey);
 
 	//게시글 수정값 가져오기
 	public BoardRegRequest modifyView(int idx);
@@ -37,6 +40,9 @@ public interface QnADaoInterface {
 
 	//답글 쓰기
 	public int replyWriteBoard(@Param("regReq") BoardRegRequest regRequest,@Param("idx") int idx);
+	
+	//이전 groupOld가져오기
+	public int groupOldSelect(int idx);
 	
 	//댓글 쓰기
 	public int insertComment(QnaComment comment);

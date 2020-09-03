@@ -30,23 +30,23 @@ public class QnaBoardController {
 	@ResponseBody
 	public QnaListView getView(@RequestParam Map<String,Object> map) {
 		int idx = Integer.parseInt((String) map.get("idx"));
-		System.out.println("페이지값====>" + map.get("idx"));
-		System.out.println("검색어====>" + map.get("searchType"));
-		System.out.println("검색타입====>" + map.get("keyword"));
+//		System.out.println("페이지값====>" + map.get("idx"));
+//		System.out.println("검색어====>" + map.get("searchType"));
+//		System.out.println("검색타입====>" + map.get("keyword"));
 		return boardService.getQnABoardList(map); 
 	}
 	
 	//게시글 쓰기
 	@PostMapping(value="/")
 	public int writeBoard(@RequestBody BoardRegRequest regRequest) {
-		System.out.println("게시글쓰기를타니?");
+//		System.out.println("게시글쓰기를타니?");
 		return boardService.writeBoard(regRequest);
 	}
 	
 	//답글 쓰기
 	@PostMapping(value="reply-board/{idx}")
 	public int replyWriteBoard(@RequestBody BoardRegRequest regRequest, @PathVariable int idx) {
-		System.out.println("답글쓰기를타니?");
+//		System.out.println("답글쓰기를타니?");
 		return boardService.replyWriteBoard(regRequest,idx);
 	}
 	

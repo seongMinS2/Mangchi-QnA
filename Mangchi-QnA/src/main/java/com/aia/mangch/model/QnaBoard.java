@@ -13,23 +13,22 @@ public class QnaBoard {
 	private int count;
 	private int status;
 	private String pw;
-	private int parents;
-	private String from;
+	private int originNo;
+	private int groupOrd;
+	private int groupLayer;
 	private List<QnaComment> comment;
 	/*============================*/
 	
 	public QnaBoard() {	}
 	
 	// 화면에 출력될때 필요한 모델 데이터
-	public QnaBoard(int idx, String memNick, String title, Date regdate, int count, int status, int parents, String from, List<QnaComment> comment) {
+	public QnaBoard(int idx, String memNick, String title, Date regdate, int count, int status, List<QnaComment> comment) {
 		this.idx = idx;
 		this.memNick = memNick;
 		this.title = title;
 		this.regdate = regdate;
 		this.count = count;
 		this.status = status;
-		this.parents = parents;
-		this.from = from;
 		this.comment = comment;
 	}
 	
@@ -41,8 +40,10 @@ public class QnaBoard {
 		this.pw = pw;
 	}
 
+
+
 	public QnaBoard(int idx, String memNick, String title, String contents, Date regdate, int count, int status,
-			String pw, int parents, String from, List<QnaComment> comment) {
+			String pw, int originNo, int groupOrd, int groupLayer, List<QnaComment> comment) {
 		this.idx = idx;
 		this.memNick = memNick;
 		this.title = title;
@@ -51,8 +52,9 @@ public class QnaBoard {
 		this.count = count;
 		this.status = status;
 		this.pw = pw;
-		this.parents = parents;
-		this.from = from;
+		this.originNo = originNo;
+		this.groupOrd = groupOrd;
+		this.groupLayer = groupLayer;
 		this.comment = comment;
 	}
 
@@ -120,22 +122,6 @@ public class QnaBoard {
 		this.pw = pw;
 	}
 
-	public int getParents() {
-		return parents;
-	}
-
-	public void setParents(int parents) {
-		this.parents = parents;
-	}
-
-	public String getfrom() {
-		return from;
-	}
-
-	public void setfrom(String from) {
-		this.from = from;
-	}
-
 	public List<QnaComment> getComment() {
 		return comment;
 	}
@@ -144,13 +130,36 @@ public class QnaBoard {
 		this.comment = comment;
 	}
 
-	@Override
-	public String toString() {
-		return "QnABoard [idx=" + idx + ", memNick=" + memNick + ", title=" + title + ", contents=" + contents
-				+ ", regdate=" + regdate + ", count=" + count + ", status=" + status + ", pw=" + pw + ", parents="
-				+ parents + ", from=" + from + ", comment=" + comment + "]";
+	public int getOriginNo() {
+		return originNo;
 	}
 
+	public void setOriginNo(int originNo) {
+		this.originNo = originNo;
+	}
+
+	public int getGroupOrd() {
+		return groupOrd;
+	}
+
+	public void setGroupOrd(int groupOrd) {
+		this.groupOrd = groupOrd;
+	}
+
+	public int getGroupLayer() {
+		return groupLayer;
+	}
+
+	public void setGroupLayer(int groupLayer) {
+		this.groupLayer = groupLayer;
+	}
+
+	@Override
+	public String toString() {
+		return "QnaBoard [idx=" + idx + ", memNick=" + memNick + ", title=" + title + ", contents=" + contents
+				+ ", regdate=" + regdate + ", count=" + count + ", status=" + status + ", pw=" + pw + ", originNo="
+				+ originNo + ", groupOrd=" + groupOrd + ", groupLayer=" + groupLayer + ", comment=" + comment + "]";
+	}
 	
 	
 }

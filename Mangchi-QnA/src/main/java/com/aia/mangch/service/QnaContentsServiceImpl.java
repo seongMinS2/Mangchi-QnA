@@ -1,5 +1,8 @@
 package com.aia.mangch.service;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,8 +23,9 @@ public class QnaContentsServiceImpl implements QnaContentsService {
 	public QnaBoard selectBoardComment(int idx) {
 		
 		dao = template.getMapper(QnADaoInterface.class);
-
-		return dao.selectBoardComment(idx);
+		Map<String,Integer> map = new HashMap<String,Integer>();
+		map.put("idx",idx);
+		return dao.selectBoardComment(map);
 	}
 
 	//댓글 쓰기
