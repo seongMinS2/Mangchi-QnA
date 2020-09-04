@@ -115,9 +115,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<insert id="replyWriteBoard">
 		INSERT INTO 
 		Mangchi.qna_board
-		(member_nick, qna_title, qna_contents, qna_pw, qna_parents) 
+		(member_nick, qna_title, qna_contents, qna_pw,qna_originNO, qna_groupOrd, qna_groupLayer) 
 		VALUE 
-		(#{regReq.memberNick},#{regReq.title},#{regReq.contents},#{regReq.pw},#{idx})
+		(#{regReq.memberNick},#{regReq.title},#{regReq.contents},#{regReq.pw},#{idx},#{groupOrd}, 1)
 	</insert>
 	
 	<!-- 이전글groupOld값+1가져오기 -->

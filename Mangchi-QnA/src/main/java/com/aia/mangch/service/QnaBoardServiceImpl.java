@@ -6,6 +6,7 @@ import java.util.Map;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.aia.mangch.dao.QnADaoInterface;
 import com.aia.mangch.model.BoardRegRequest;
@@ -13,6 +14,7 @@ import com.aia.mangch.model.QnaBoard;
 import com.aia.mangch.util.QnaListView;
 
 @Service
+
 public class QnaBoardServiceImpl implements QnaBoardService {
 
 	private QnADaoInterface dao;
@@ -36,7 +38,10 @@ public class QnaBoardServiceImpl implements QnaBoardService {
 	// 한페이지에 보여질 뷰 리스트
 	private List<QnaBoard> boardList;
 
+
+	
 	// 게시글 페이징 목록 출력
+	@Transactional
 	public QnaListView getQnABoardList(Map<String, Object> map) {
 
 		dao = template.getMapper(QnADaoInterface.class);
@@ -45,7 +50,6 @@ public class QnaBoardServiceImpl implements QnaBoardService {
 		if (page <= 0) {
 			page = 1;
 		}
-
 		// 시작페이지
 		startPage = ((page - 1) / countPage) * countPage + 1;
 
@@ -87,8 +91,8 @@ public class QnaBoardServiceImpl implements QnaBoardService {
 	}
 
 	// 게시글 쓰기
+	@Transactional
 	public int writeBoard(BoardRegRequest regRequest) {
-
 		dao = template.getMapper(QnADaoInterface.class);
 		QnaBoard board = regRequest.toQnaBoard();
 		dao.writeBoard(board);
@@ -114,11 +118,24 @@ public class QnaBoardServiceImpl implements QnaBoardService {
 
 	// 삭제하기
 	public int deleteBoard(int idx) {
+		
+		dao = template.getMapper(QnADaoInterface.class);
+		
 		return dao.deleteBoard(idx);
 	}
 
 	// 답글작성
+	@Transactional
 	public int replyWriteBoard(BoardRegRequest regRequest, int idx) {
-		return dao.replyWriteBoard(regRequest, idx);
+		
+		int groupOld;
+		
+		dao = template.getMapper(QnADaoInterface.class);
+		
+		//old값 + 1 얻기
+		//이유: 답글 정렬시에 필요
+		groupOld = dao.groupOldSelect(idx);
+		System.out.println("dao ========================>>> "+dao);
+		return dao.replyWriteBoard(regRequest, idx, groupOld);
 	}
 }

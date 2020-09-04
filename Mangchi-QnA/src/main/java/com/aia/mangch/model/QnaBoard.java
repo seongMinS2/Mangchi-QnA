@@ -156,7 +156,7 @@ public class QnaBoard {
 
 	@Override
 	public String toString() {
-		return "QnaBoard [idx=" + idx + ", memNick=" + memNick + ", title=" + title + ", contents=" + contents
+		return "QnaBoard [idx=" + idx + ", memNick=" + memNick + ", title=" + title +  ", contents=" + contents
 				+ ", regdate=" + regdate + ", count=" + count + ", status=" + status + ", pw=" + pw + ", originNo="
 				+ originNo + ", groupOrd=" + groupOrd + ", groupLayer=" + groupLayer + ", comment=" + comment + "]";
 	}

@@ -39,7 +39,7 @@ public interface QnADaoInterface {
 	public int deleteBoard(int idx);
 
 	//답글 쓰기
-	public int replyWriteBoard(@Param("regReq") BoardRegRequest regRequest,@Param("idx") int idx);
+	public int replyWriteBoard(@Param("regReq") BoardRegRequest regRequest,@Param("idx") int idx,@Param("groupOrd") int ord);
 	
 	//이전 groupOld가져오기
 	public int groupOldSelect(int idx);
