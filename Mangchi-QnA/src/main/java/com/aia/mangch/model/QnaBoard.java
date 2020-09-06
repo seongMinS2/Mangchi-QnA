@@ -16,6 +16,7 @@ public class QnaBoard {
 	private int originNo;
 	private int groupOrd;
 	private int groupLayer;
+	private int pwCheck;
 	private List<QnaComment> comment;
 	/*============================*/
 	
@@ -43,7 +44,7 @@ public class QnaBoard {
 
 
 	public QnaBoard(int idx, String memNick, String title, String contents, Date regdate, int count, int status,
-			String pw, int originNo, int groupOrd, int groupLayer, List<QnaComment> comment) {
+					int originNo, int groupOrd, int groupLayer,int pwCheck, List<QnaComment> comment) {
 		this.idx = idx;
 		this.memNick = memNick;
 		this.title = title;
@@ -51,10 +52,10 @@ public class QnaBoard {
 		this.regdate = regdate;
 		this.count = count;
 		this.status = status;
-		this.pw = pw;
 		this.originNo = originNo;
 		this.groupOrd = groupOrd;
 		this.groupLayer = groupLayer;
+		this.pwCheck = pwCheck;
 		this.comment = comment;
 	}
 
@@ -153,13 +154,23 @@ public class QnaBoard {
 	public void setGroupLayer(int groupLayer) {
 		this.groupLayer = groupLayer;
 	}
+	
+	public int getPwCheck() {
+		return pwCheck;
+	}
+
+	public void setPwCheck(int pwCheck) {
+		this.pwCheck = pwCheck;
+	}
 
 	@Override
 	public String toString() {
-		return "QnaBoard [idx=" + idx + ", memNick=" + memNick + ", title=" + title +  ", contents=" + contents
+		return "QnaBoard [idx=" + idx + ", memNick=" + memNick + ", title=" + title + ", contents=" + contents
 				+ ", regdate=" + regdate + ", count=" + count + ", status=" + status + ", pw=" + pw + ", originNo="
-				+ originNo + ", groupOrd=" + groupOrd + ", groupLayer=" + groupLayer + ", comment=" + comment + "]";
+				+ originNo + ", groupOrd=" + groupOrd + ", groupLayer=" + groupLayer + ", pwCheck=" + pwCheck
+				+ ", comment=" + comment + "]";
 	}
+
 	
 	
 }

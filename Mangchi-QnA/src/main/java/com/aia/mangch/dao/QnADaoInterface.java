@@ -6,13 +6,14 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Param;
 
 import com.aia.mangch.model.BoardRegRequest;
+import com.aia.mangch.model.PwCheck;
 import com.aia.mangch.model.QnaBoard;
 import com.aia.mangch.model.QnaComment;
 
 public interface QnADaoInterface {
 
 	//총 게시물 수 구하기
-	public int selectTotalCount();
+	public int selectTotalCount(Map<String, Object> map);
 	
 	//한페이지에 보여질 게시물
 	public List<QnaBoard> selectView(Map<String,Object> map);
@@ -55,6 +56,11 @@ public interface QnADaoInterface {
 
 	//댓글 수정
 	public int modifyComment(QnaComment comment);
+	
+	//비밀글 비밀번호 체크
+	public int pwCheck(PwCheck check);
+
+	public void countView(Map<String, Integer> map);
 
 }
 

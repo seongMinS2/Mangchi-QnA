@@ -1,5 +1,6 @@
 package com.aia.mangch.service;
 
+import com.aia.mangch.model.PwCheck;
 import com.aia.mangch.model.QnaBoard;
 import com.aia.mangch.model.QnaComment;
 
@@ -13,4 +14,6 @@ public interface QnaContentsService {
 	public int insertHirachyComment(QnaComment comment);
 
 	public int modifyComment(QnaComment comment);
+
+	public int pwCheck(PwCheck check);
 }

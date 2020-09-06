@@ -57,7 +57,7 @@ public class QnaBoardServiceImpl implements QnaBoardService {
 		endPage = startPage + countPage - 1;
 
 		// 전체 게시물 수 구하기
-		totalCount = dao.selectTotalCount();
+		totalCount = dao.selectTotalCount(map);
 
 		// 총 페이지
 		totalPage = totalCount / countList;
@@ -80,7 +80,7 @@ public class QnaBoardServiceImpl implements QnaBoardService {
 		if (endPage > totalPage) {
 			endPage = totalPage;
 		}
-
+		
 		// 시작과 끝페이지 맵에 담기
 		map.put("startRow", startRow);
 		map.put("countList", countList);

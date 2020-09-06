@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.aia.mangch.model.PwCheck;
 import com.aia.mangch.model.QnaBoard;
 import com.aia.mangch.model.QnaComment;
 import com.aia.mangch.service.QnaContentsService;
@@ -27,6 +28,7 @@ public class QnaContentsController {
 		
 		return contentsService.selectBoardComment(idx);
 	}
+	
 	
 	//댓글 쓰기
 	@PostMapping(value="/")
@@ -56,4 +58,12 @@ public class QnaContentsController {
 		
 		return contentsService.deleteComment(idx);
 	}
+	
+	//비밀글 체크
+	@PostMapping(value="/pwCheck")
+	public int pwCheck(@RequestBody PwCheck check) {
+		System.out.println("받아온 데이터" + check);
+		return contentsService.pwCheck(check);
+	}
+	
 }

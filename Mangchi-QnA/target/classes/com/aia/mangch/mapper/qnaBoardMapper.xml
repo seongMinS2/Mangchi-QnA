@@ -18,8 +18,24 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="originNo" column="qna_originNo" />
 		<result property="groupOrd" column="qna_groupOrd" />
 		<result property="groupLayer" column="qna_groupLayer" />
+		<result property="pwCheck" column="qna_pw_check" />
 		<!-- 컬렉션을 쓰면 리스트나 맵으로 모든 결과를 담을수잇음 -->
 		<collection property="comment" resultMap="resultComm"></collection>
+	</resultMap>
+	
+		<resultMap id="resultQnaBoard"
+				type="com.aia.mangch.model.QnaBoard">
+		<id property="idx" column="qna_idx" />
+		<result property="memNick" column="member_nick" />
+		<result property="title" column="qna_title" />
+		<result property="contents" column="qna_contents" />
+		<result property="regdate" column="qna_regdate" />
+		<result property="count" column="qna_count" />
+		<result property="status" column="qna_status" />
+		<result property="originNo" column="qna_originNo" />
+		<result property="groupOrd" column="qna_groupOrd" />
+		<result property="groupLayer" column="qna_groupLayer" />
+		<result property="pwCheck" column="qna_pw_check" />
 	</resultMap>
 	
 	<resultMap id="resultComm"
@@ -63,7 +79,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <!-- ######################################################################## -->
 	
 	<!-- 전체 게시물 갯수 -->
-	<select id="selectTotalCount"
+	<select id="selectTotalCount" parameterType="map"
 			resultType="int">
 			SELECT count(*) 
 			FROM Mangchi.qna_board
@@ -71,7 +87,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 		<!-- 전체 게시물 출력 -->
-	<select id="selectView" parameterType="map" resultMap="resultQna">
+	<select id="selectView" parameterType="map" resultMap="resultQnaBoard">
 			SELECT * FROM Mangchi.qna_board
 			<include refid="lsitSearch"/>
 			ORDER BY qna_originNo DESC,
@@ -97,6 +113,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		</if>
 			
 	</select>
+	
+	<update id="countView" parameterType="map">
+		UPDATE Mangchi.qna_board
+		SET qna_count = qna_count+1
+		WHERE qna_idx = #{idx}
+	</update>
 		
 	<!-- 게시글 쓰기 --> 
 	<insert id="writeBoard">
@@ -134,6 +156,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SET qna_originNo = #{selectKey}
 		WHERE qna_idx = #{selectKey}
 	</update>
+	
+	<!-- 비밀글 체크 -->
+	<select id="pwCheck" resultType="int">
+		SELECT count(*)
+		FROM Mangchi.qna_board
+		WHERE qna_idx = #{idx}
+		AND qna_pw = #{pw}
+	</select>
 
 	<!-- 게시글 수정뷰 출력 -->
 	<select id="modifyView" resultMap="resultModify">
