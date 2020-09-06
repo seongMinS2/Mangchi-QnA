@@ -124,9 +124,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<insert id="writeBoard">
 		INSERT INTO 
 		Mangchi.qna_board
-		(member_nick, qna_title, qna_contents, qna_pw) 
+		(member_nick, qna_title, qna_contents, qna_pw, qna_pw_check) 
 		VALUE
-		(#{memNick},#{title},#{contents},#{pw})
+		(#{memNick},#{title},#{contents},#{pw},#{pwCheck})
 	<selectKey resultType="int" keyProperty="originNo" order="AFTER">
         SELECT LAST_INSERT_ID()
     </selectKey>        
@@ -137,9 +137,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<insert id="replyWriteBoard">
 		INSERT INTO 
 		Mangchi.qna_board
-		(member_nick, qna_title, qna_contents, qna_pw,qna_originNO, qna_groupOrd, qna_groupLayer) 
+		(member_nick, qna_title, qna_contents, qna_pw,qna_originNO, qna_groupOrd, qna_groupLayer, qna_pw_check) 
 		VALUE 
-		(#{regReq.memberNick},#{regReq.title},#{regReq.contents},#{regReq.pw},#{idx},#{groupOrd}, 1)
+		(#{regReq.memberNick},#{regReq.title},#{regReq.contents},#{regReq.pw},#{idx},#{groupOrd}, 1, #{regReq.pwCheck})
 	</insert>
 	
 	<!-- 이전글groupOld값+1가져오기 -->

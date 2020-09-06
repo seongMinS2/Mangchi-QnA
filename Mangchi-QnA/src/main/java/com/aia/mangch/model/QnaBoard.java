@@ -34,11 +34,12 @@ public class QnaBoard {
 	}
 	
 	//글쓰기 모델
-	public QnaBoard(String memNick, String title, String contents, String pw) {
+	public QnaBoard(String memNick, String title, String contents, String pw,int pwCheck) {
 		this.memNick = memNick;
 		this.title = title;
 		this.contents = contents;
 		this.pw = pw;
+		this.pwCheck = pwCheck;
 	}
 
 

@@ -9,14 +9,16 @@ public class BoardRegRequest {
 	private int originNo;
 	private int groupOrd;
 	private int groupLayer;
+	private int pwCheck;
 	
 	public BoardRegRequest() {}
 	
-	public BoardRegRequest(String memberNick, String title, String contents, String pw) {
+	public BoardRegRequest(String memberNick, String title, String contents, String pw, int pwCheck) {
 		this.memberNick = memberNick;
 		this.title = title;
 		this.contents = contents;
 		this.pw = pw;
+		this.pwCheck = pwCheck;
 	}
 
 	public String getMemberNick() {
@@ -75,16 +77,26 @@ public class BoardRegRequest {
 		this.groupLayer = groupLayer;
 	}
 
+	public int getPwCheck() {
+		return pwCheck;
+	}
+
+	public void setPwCheck(int pwCheck) {
+		this.pwCheck = pwCheck;
+	}
+
 	// BoardRegRequest -> QnABoard
 	public QnaBoard toQnaBoard() {
-		return new QnaBoard(memberNick,title,contents,pw);
+		return new QnaBoard(memberNick,title,contents,pw,pwCheck);
 	}
 
 	@Override
 	public String toString() {
 		return "BoardRegRequest [memberNick=" + memberNick + ", title=" + title + ", contents=" + contents + ", pw="
-				+ pw + ", originNo=" + originNo + ", groupOrd=" + groupOrd + ", groupLayer=" + groupLayer + "]";
+				+ pw + ", originNo=" + originNo + ", groupOrd=" + groupOrd + ", groupLayer=" + groupLayer + ", pwCheck="
+				+ pwCheck + "]";
 	}
+
 
 	
 	
