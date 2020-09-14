@@ -3,6 +3,7 @@ package com.aia.mangch.controller;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,6 +27,7 @@ public class QnaBoardController {
 	private QnaBoardService boardService;
 
 	//게시글 목록 출력
+	@CrossOrigin
 	@GetMapping(value="/")
 	@ResponseBody
 	public QnaListView getView(@RequestParam Map<String,Object> map) {
@@ -37,6 +39,7 @@ public class QnaBoardController {
 	}
 	
 	//게시글 쓰기
+	@CrossOrigin
 	@PostMapping(value="/")
 	public int writeBoard(@RequestBody BoardRegRequest regRequest) {
 //		System.out.println("게시글쓰기를타니?");
@@ -44,6 +47,7 @@ public class QnaBoardController {
 	}
 	
 	//답글 쓰기
+	@CrossOrigin
 	@PostMapping(value="reply-board/{idx}")
 	public int replyWriteBoard(@RequestBody BoardRegRequest regRequest, @PathVariable int idx) {
 //		System.out.println("답글쓰기를타니?");
@@ -52,11 +56,13 @@ public class QnaBoardController {
 	
 	
 	//게시글 수정뷰 출력
+	@CrossOrigin
 	@GetMapping(value="update-board/{idx}")
 	public BoardRegRequest updateBoardView(@PathVariable int idx) {
 		return boardService.modifyView(idx);
 	}
 	//게시글 수정
+	@CrossOrigin
 	@PutMapping(value="update-board/{idx}")
 	public int updateBoard(@PathVariable int idx, @RequestBody BoardRegRequest regRequest) {
 		System.out.println("게시글수정=====>" + regRequest);
@@ -64,6 +70,7 @@ public class QnaBoardController {
 	}
 	
 	//게시글 삭제
+	@CrossOrigin
 	@DeleteMapping(value="{idx}")
 	public int deleteBoard(@PathVariable int idx) {
 		

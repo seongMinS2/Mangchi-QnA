@@ -1,6 +1,7 @@
 package com.aia.mangch.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,6 +24,7 @@ public class QnaContentsController {
 	private QnaContentsService contentsService;
 
 	//상세 페이지 데이터 select
+	@CrossOrigin
 	@GetMapping(value="{idx}")
 	public QnaBoard qnaDetailView(@PathVariable int idx) {
 		
@@ -31,6 +33,7 @@ public class QnaContentsController {
 	
 	
 	//댓글 쓰기
+	@CrossOrigin
 	@PostMapping(value="/")
 	public int writeComment(@RequestBody QnaComment comment) {
 		System.out.println("댓글 받은 데이터 ============>" + comment);
@@ -38,6 +41,7 @@ public class QnaContentsController {
 	}
 	
 	//대댓글쓰기
+	@CrossOrigin
 	@PostMapping(value="/hirachy")
 	public int writeHirachyComment(@RequestBody QnaComment comment) {
 		System.out.println("대댓글 받은 데이터 =======>" + comment);
@@ -46,6 +50,7 @@ public class QnaContentsController {
 	
 	
 	//댓글 수정
+	@CrossOrigin
 	@RequestMapping(value="/", method = RequestMethod.PUT)
 	public int updateComment(@RequestBody QnaComment comment) {
 		System.out.println("수정 댓글 받은 데이터 ======>" + comment);
@@ -53,6 +58,7 @@ public class QnaContentsController {
 	}
 	
 	//게시글 삭제
+	@CrossOrigin
 	@DeleteMapping(value="/{idx}")
 	public int deleteComment(@PathVariable int idx) {
 		
@@ -60,6 +66,7 @@ public class QnaContentsController {
 	}
 	
 	//비밀글 체크
+	@CrossOrigin
 	@PostMapping(value="/pwCheck")
 	public int pwCheck(@RequestBody PwCheck check) {
 		System.out.println("받아온 데이터" + check);
